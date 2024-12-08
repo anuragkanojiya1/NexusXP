@@ -62,13 +62,14 @@ class MainActivity : ComponentActivity() {
     private val gameViewModel: GameViewModel by viewModels()
 
     val web3j: Web3j =
-        Web3j.build(HttpService("https://sepolia.infura.io/v3/8c09f9f92fc4438fbbce47b4a3eb2b3d")) // Replace with Infura/Alchemy node URL
+        Web3j.build(HttpService("https://mantle-sepolia.infura.io/v3/8c09f9f92fc4438fbbce47b4a3eb2b3d")) // Replace with Infura/Alchemy node URL
 
     // Gas provider for transactions
-    val gasPrice = BigInteger.valueOf(20_000_000_000L) // 20 Gwei
-    val gasLimit = BigInteger.valueOf(500_000)         // Gas limit
+    val gasPrice = BigInteger.valueOf(201_600_000_000L) // 201.6 Gwei
+    val gasLimit = BigInteger.valueOf(500_000) // Gas limit
+
     val gasProvider = StaticGasProvider(gasPrice, gasLimit)
-    val contractAddress = "0x94be16588154B0F2b80e5ff6F25032D5978f3C69"
+    val contractAddress = "0x855ca462005f7DacC1E5c9ea29D43A2f84B58bda"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
