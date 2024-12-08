@@ -19,6 +19,9 @@ import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
+import org.web3j.protocol.core.methods.response.EthChainId
+import org.web3j.tx.ChainId
+import org.web3j.tx.ChainIdLong
 import org.web3j.utils.Numeric
 import java.math.BigInteger
 
@@ -168,7 +171,7 @@ class GameViewModel : ViewModel() {
             encodedFunction
         )
 
-        val signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials)
+        val signedMessage = TransactionEncoder.signMessage(rawTransaction, 5003, credentials)
         return Numeric.toHexString(signedMessage)
     }
 
