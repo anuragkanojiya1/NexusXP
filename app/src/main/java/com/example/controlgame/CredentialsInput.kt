@@ -45,6 +45,7 @@ import androidx.security.crypto.MasterKey
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.web3j.crypto.TransactionEncoder
 import java.math.BigInteger
 
 @Composable
