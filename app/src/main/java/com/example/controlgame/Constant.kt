@@ -6,7 +6,7 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 
-val web3j: Web3j = Web3j.build(HttpService("https://mantle-sepolia.infura.io/v3/8c09f9f92fc4438fbbce47b4a3eb2b3d")) // Replace with Infura/Alchemy node URL
+val web3j: Web3j = Web3j.build(HttpService("https://mantle-sepolia.infura.io/v3/8c09f9f92fc4438fbbce47b4a3eb2b3d"))
 
 val gasPrice = BigInteger.valueOf(22_000_000L)
 val gasLimit = BigInteger.valueOf(400_000_000L)
