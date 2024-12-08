@@ -198,7 +198,7 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                             val giftBoxNode = AnchorNode(engine, anchor).apply {
                                 modelNode2 = ModelNode(
                                     modelInstance = modelLoader.createModelInstance(giftBox),
-                                    scaleToUnits = 0.4f
+                                    scaleToUnits = 0.3f
                                 ).apply {
                                     isScaleEditable = false
                                     isPositionEditable = false
@@ -257,7 +257,7 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                     val distance = calculateDistance(giftBoxPosition, helmetPosition)
                     Log.d("Distance", "Distance: $distance")
 
-                    if (distance < 0.4f) { // Collision detected
+                    if (distance < 0.5f) { // Collision detected
                         Log.d("Collision", "Collision detected! Removing gift box.")
                         modelNode2!!.destroy() // Remove the gift box node
                         modelNode2 = null // Clear the reference to avoid rechecking
@@ -279,7 +279,7 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                             val newGiftBoxNode = AnchorNode(engine, anchor).apply {
                                 modelNode2 = ModelNode(
                                     modelInstance = modelLoader.createModelInstance(giftBox),
-                                    scaleToUnits = 0.4f
+                                    scaleToUnits = 0.3f
                                 ).apply {
                                     name = "giftbox"
                                     position = Float3(
