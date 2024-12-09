@@ -104,12 +104,11 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
         var score by remember { mutableStateOf(0) } // Initialize score
         var mediaPlayer: MediaPlayer? by remember { mutableStateOf(null) }
 
-        // Load the sound and release resources when disposed
         DisposableEffect(context) {
             mediaPlayer = MediaPlayer.create(context, R.raw.ufo_sound)
 
             onDispose {
-                mediaPlayer?.release() // Release the mediaPlayer when the composable leaves the composition
+                mediaPlayer?.release()
             }
         }
 
@@ -128,7 +127,6 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
 
         val preferencesManager = remember { PreferencesManager(context) }
 
-        // Filter models based on their state (bought or unlocked)
         val unlockedOrBoughtModels = models.filter {
             val modelState = preferencesManager.getModelState(it.id)
             modelState == "bought" || modelState == "unlocked"
@@ -246,7 +244,6 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
         LaunchedEffect(childNodes) {
             while (true) {
 
-                // Check positions and calculate distance
                 val giftBoxPosition = modelNode2?.position
                 val helmetPosition = modelNode?.position
 
@@ -257,16 +254,15 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                     val distance = calculateDistance(giftBoxPosition, helmetPosition)
                     Log.d("Distance", "Distance: $distance")
 
-                    if (distance < 0.5f) { // Collision detected
+                    if (distance < 0.5f) {
                         Log.d("Collision", "Collision detected! Removing gift box.")
-                        modelNode2!!.destroy() // Remove the gift box node
-                        modelNode2 = null // Clear the reference to avoid rechecking
-                        score++ // Increase score on collision
+                        modelNode2!!.destroy()
+                        modelNode2 = null
+                        score++
 
-                        // Play collision sound effect
                         mediaPlayer?.start()
 
-                        delay(1000L) // Delay before respawning the gift box
+                        delay(1000L)
                     }
                 }
 

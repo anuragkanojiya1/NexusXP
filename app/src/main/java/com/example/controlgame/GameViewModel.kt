@@ -29,7 +29,7 @@ class GameViewModel : ViewModel() {
 
     private val _playerScore = MutableStateFlow<BigInteger>(BigInteger.ZERO)
     val playerScore: StateFlow<BigInteger> get() = _playerScore
-    var score = mutableStateOf(0) // Mutable state for score
+    var score = mutableStateOf(0)
 
 
     private val _transactionStatus = MutableStateFlow<String>("")
@@ -42,14 +42,12 @@ class GameViewModel : ViewModel() {
     private var playerAddress: String = ""
     private lateinit var credentials: Credentials
 
-    // Function to initialize the player address
     fun initializeCredentials(key: Credentials, address: String) {
         credentials = key
         playerAddress = address
     }
 
 
-    // Check if item is unlocked
     fun checkIfItemUnlocked(playerAddress: String, itemId: BigInteger) {
         viewModelScope.launch {
             _isItemUnlockedStatus.value = isItemUnlocked(playerAddress, itemId)

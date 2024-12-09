@@ -64,7 +64,6 @@ class MainActivity : ComponentActivity() {
     val web3j: Web3j =
         Web3j.build(HttpService("https://mantle-sepolia.infura.io/v3/8c09f9f92fc4438fbbce47b4a3eb2b3d")) // Replace with Infura/Alchemy node URL
 
-    // Gas provider for transactions
     val gasPrice = BigInteger.valueOf(201_600_000_000L) // 201.6 Gwei
     val gasLimit = BigInteger.valueOf(500_000) // Gas limit
 
@@ -79,26 +78,20 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
 
-                // Mutable state for key check, initially null
                 var isKeySaved by remember { mutableStateOf<Boolean?>(null) }
 
-                // Check if the private key is saved
                 LaunchedEffect(Unit) {
                     isKeySaved = isPrivateKeySaved(this@MainActivity)
                 }
 
-                // Display screen based on key check result
                 when (isKeySaved) {
                     null -> {
-                        // Show a loading screen while checking the key
                         SplashScreen()
                     }
                     true -> {
-                        // Navigate to GameScreen if key is saved
                         NavGraph(navController, gameViewModel)
                     }
                     false -> {
-                        // Show CredentialsInput if key is not saved
                         CredentialsInput(
                             navController,
                             gameViewModel,

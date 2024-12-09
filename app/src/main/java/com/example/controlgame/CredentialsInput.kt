@@ -54,7 +54,6 @@ fun Enterprivatekey(){
     val privateKey = remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    // Initialize EncryptedSharedPreferences
     val masterKey = MasterKey.Builder(context)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
         .build()
@@ -67,7 +66,6 @@ fun Enterprivatekey(){
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
-    // Load private key from EncryptedSharedPreferences on launch
     LaunchedEffect(Unit) {
         val storedKey = encryptedSharedPreferences.getString("privateKey", "")
         privateKey.value = storedKey ?: ""
@@ -103,7 +101,6 @@ fun CredentialsInput(
 
     val context = LocalContext.current
 
-    // List of models
     val models = listOf(
         ModelItem("0", "10", "100", "Audi", "3D model", R.drawable.audi, "models/audi.glb"),
         ModelItem("1", "10", "100", "Car", "3D model", R.drawable.audi, "models/car1.glb"),
@@ -124,7 +121,6 @@ fun CredentialsInput(
 //            gameViewModel.addItem(models.get(4).name, BigInteger.valueOf(1000), BigInteger.valueOf(3000))
 //    }
 
-    // Initialize EncryptedSharedPreferences
     val masterKey = MasterKey.Builder(context)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
         .build()
@@ -137,7 +133,6 @@ fun CredentialsInput(
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
-    // Load private key from EncryptedSharedPreferences on launch
     LaunchedEffect(Unit) {
         val storedKey = encryptedSharedPreferences.getString("privateKey", "")
         privateKey.value = storedKey ?: ""
@@ -150,7 +145,7 @@ fun CredentialsInput(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        // Header with back button
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -159,7 +154,7 @@ fun CredentialsInput(
         ) {
             IconButton(onClick = {  }) {
                 Icon(
-                    imageVector = Icons.Default.ArrowBack, // Replace with your arrow icon
+                    imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back",
                     tint = Color.White,
                     modifier = Modifier.size(24.dp)
@@ -167,7 +162,7 @@ fun CredentialsInput(
             }
         }
 
-        // Title
+
         Text(
             text = "Enter your private key",
             color = Color.White,
@@ -177,7 +172,6 @@ fun CredentialsInput(
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         )
 
-        // Description
         Text(
             text = "Your private key is a secret code that gives you access to your wallet. It should never be shared.",
             color = Color(0xFF9DABB8),
@@ -188,7 +182,6 @@ fun CredentialsInput(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Private Key Input
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -233,7 +226,6 @@ fun CredentialsInput(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Continue Button
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -241,8 +233,7 @@ fun CredentialsInput(
         ) {
             Button(
                 onClick = {
-                    if (privateKey.value.length == 66) { // Check for valid length (e.g., 64 chars + '0x' prefix)
-                        // Save private key to EncryptedSharedPreferences
+                    if (privateKey.value.length == 66) {
                         encryptedSharedPreferences.edit().putString("privateKey", privateKey.value).apply()
                         errorMessage.value = null
                         onKeySaved()
@@ -287,7 +278,6 @@ fun isPrivateKeySaved(context: Context): Boolean {
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
-    // Check if the private key exists
     return !encryptedSharedPreferences.getString("privateKey", "").isNullOrEmpty()
 }
 
@@ -304,6 +294,5 @@ fun getPrivateKey(context: Context): String? {
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
-    // Retrieve and return the private key
     return encryptedSharedPreferences.getString("privateKey", null)
 }

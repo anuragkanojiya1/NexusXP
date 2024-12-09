@@ -10,7 +10,6 @@ package com.example.controlgame
 //
 //}
 
-// List of models
 val models = listOf(
     ModelItem("0", "10", "100", "Audi", "3D model", R.drawable.audi, "models/audi.glb"),
     ModelItem("1", "30", "200", "Car", "3D model", R.drawable.redcar, "models/car1.glb"),

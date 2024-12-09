@@ -124,7 +124,6 @@ fun ModelsScreen(gameViewModel: GameViewModel, navController: NavController, sco
         gameViewModel.initializeCredentials(credentials, credentials.address.toString())
     }
 
-    // Fetch Player Score on Screen Load
     LaunchedEffect(Unit) {
             gameViewModel.updatePlayerScore(score.toBigInteger()).toString()
             gameViewModel.fetchPlayerScore()
@@ -209,7 +208,6 @@ fun ModelCard(
 
     val modelState = remember { mutableStateOf(preferencesManager.getModelState(model.id)) }
 
-    // Update model state after buy or unlock
     val updateModelState: (String) -> Unit = { newState ->
         preferencesManager.saveModelState(model.id, newState)
         modelState.value = newState
@@ -217,7 +215,6 @@ fun ModelCard(
 
     var isUnlocked = remember { mutableStateOf(false) }
 
-    // Fetch unlocked status using a coroutine
     LaunchedEffect(model.id) {
         isUnlocked.value = playerScore >= BigInteger(model.unlockScore)
     }
