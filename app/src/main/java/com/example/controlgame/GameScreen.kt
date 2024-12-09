@@ -306,7 +306,7 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                     )
                 }
 
-                delay(100L) // Repeat the check every 100ms
+                delay(100L)
             }
         }
 
@@ -315,15 +315,7 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // Arrow Icon (Top Left)
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                tint = Color.White,
-                contentDescription = "Back",
-                modifier = Modifier.align(Alignment.TopStart)
-            )
 
-            // App Name (Centered)
             Text(
                 text = trackingFailureReason?.let {
                     it.getDescription(context)
@@ -336,7 +328,6 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                 color = Color.White
             )
 
-            // List Icon and Score (Top Right)
             Column(
                 modifier = Modifier.align(Alignment.TopEnd),
                 horizontalAlignment = Alignment.End
@@ -368,21 +359,19 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                     view = !view
                 },
                 modifier = Modifier.padding(16.dp)
-                    .padding(top = 32.dp)
                     .align(Alignment.TopStart),
             ) {
                 Text(if (view) "Hide" else "View", color = Color.White)
             }
 
-            // Conditionally display the box of models
             if (view) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(bottom = 64.dp),
-                    contentAlignment = Alignment.BottomStart // Ensures the column is aligned at the bottom
+                    contentAlignment = Alignment.BottomStart
                 ) {
-                    // Model Selection Row
+
                     Column(
                         modifier = Modifier.padding(16.dp),
                         verticalArrangement = Arrangement.Bottom
@@ -403,7 +392,7 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                                     .pointerInput(Unit) {
                                         detectTapGestures(onTap = {
                                             currentIndex = index
-                                            // Update the model in the scene
+
                                             modelNode?.destroy()
                                             frame?.getUpdatedPlanes()
                                                 ?.firstOrNull { it.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
@@ -468,60 +457,6 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel){
                 )
             }
     }
-}
-
-@Composable
-fun Menu(modifier: Modifier, onClick: (Int) -> Unit) {
-    var currentIndex by remember { mutableStateOf(0) }
-
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        IconButton(onClick = {
-            val newIndex = (currentIndex - 1 + models.size) % models.size
-            currentIndex = newIndex
-            onClick(newIndex)
-        }) {
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Previous Model")
-        }
-
-//        Image(
-//            painter = painterResource(id = models[currentIndex].image),
-//            contentDescription = "Model Image",
-//            modifier = Modifier
-//                .size(60.dp)
-//                .clip(CircleShape)
-//                .border(2.dp, Color.White, CircleShape)
-//        )
-
-        IconButton(onClick = {
-            val newIndex = (currentIndex + 1) % models.size
-            currentIndex = newIndex
-            onClick(newIndex)
-        }) {
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Next Model")
-        }
-    }
-}
-
-fun updateModel(
-    modelLoader: ModelLoader,
-    childNodes: MutableList<Node>,
-    model: Model,
-    modelNode: MutableState<ModelNode?>
-) {
-    modelNode.value?.destroy()  // Destroy current model
-    modelNode.value = ModelNode(
-        modelInstance = modelLoader.createModelInstance(model.modelPath),
-        scaleToUnits = 0.5f
-    ).apply {
-        isRotationEditable = true
-        isEditable = false
-        name = model.modelName
-    }
-
-    childNodes.add(modelNode.value!!)
 }
 
 @Preview(showBackground = true)
