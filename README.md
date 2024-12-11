@@ -31,7 +31,7 @@ Welcome to the NexusXP Project! This project combines the immersive power of AR/
 
 2. **Configure Android SDK**:
    - Open Android Studio.
-   - If Android sdk is installed correctly without errors at the start after Android studio installation then go to step 4.
+   - If Android sdk is installed correctly without errors at the start after Android studio installation then go to step 3.
    - Go to **File > Settings > Appearance & Behavior > System Settings > Android SDK**.
    - In the **SDK Platforms** tab, check the latest Android API level (e.g., API 35) and click **Apply**.
    - In the **SDK Tools** tab, select the required tools, including:
