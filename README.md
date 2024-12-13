@@ -2,6 +2,20 @@
 
 Welcome to the NexusXP Project! This project combines the immersive power of AR/VR with blockchain technology using Mantle. The game is developed in Jetpack Compose and includes features such as collectible items, real-time score tracking, and blockchain integration for managing in-game rewards and purchases.
 
+## Table of Contents
+
+- [Features](#features)
+- [Mantle Blockchain Solidity Functions](#mantle-blockchain-smart-contract-functions)
+- [Project Setup](#project-setup)
+  - [Prerequisites](#prerequisites)
+- [Setting up Android SDK and Physical Device](#setting-up-android-sdk-and-physical-device)
+- [Running the Project](#running-the-project)
+- [Demo of the Game](#demo-of-the-game)
+- [Contribution Guidelines](#contribution-guidelines)
+- [License](#license)
+- [Support](#support)
+
+
 ## Features
 
 - **AR/VR Gameplay**: A player-controlled model navigates an augmented environment to collect items and earn scores.
@@ -43,7 +57,7 @@ This project incorporates the following Solidity smart contract functions (Contr
 
 ---
 
-## Setting up Android SDK and Emulator
+## Setting up Android SDK and Physical device
 
 1. **Install Android Studio**:
    - Download and install the latest version of Android Studio from [here](https://developer.android.com/studio).
@@ -70,12 +84,8 @@ This project incorporates the following Solidity smart contract functions (Contr
 4. **Test the Setup**:
    - Build and run the project by clicking the **Run** button in Android Studio.
    - The app will take some time and eventually get launched on your android device.
-
+     
 ---
-
-## Demo of the Game
-
-https://www.youtube.com/shorts/TfeHb0OnGz4
 
 ## Running the Project
 
@@ -86,6 +96,12 @@ https://www.youtube.com/shorts/TfeHb0OnGz4
 2. Open the project in Android Studio.
 3. Sync Gradle dependencies.
 4. Run the app on a physical device or emulator(Preferably physical device here).
+
+---
+
+## Demo of the Game
+
+https://www.youtube.com/shorts/TfeHb0OnGz4
 
 ---
 
