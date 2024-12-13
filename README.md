@@ -16,6 +16,24 @@ Welcome to the NexusXP Project! This project combines the immersive power of AR/
 
 ---
 
+## Mantle Blockchain Smart Contract Functions
+
+This project incorporates the following Solidity smart contract functions (Contract Address:```0x855ca462005f7DacC1E5c9ea29D43A2f84B58bda```):
+
+- addItem: Adds a new item/skin to the game with specified name, unlock score, and price.
+
+- updateScore: Updates the score for a player.
+
+- unlockItem: Unlocks an item for a player based on their score.
+
+- buyItem: Allows a player to purchase an item using funds.
+
+- getAllItems: Retrieves all available items/skins in the game.
+
+- withdraw: Withdraws funds collected from item sales.
+
+---
+
 ## Project Setup
 
 ### Prerequisites
