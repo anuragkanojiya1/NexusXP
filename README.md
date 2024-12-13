@@ -5,7 +5,7 @@ Welcome to the NexusXP Project! This project combines the immersive power of AR/
 ## Table of Contents
 
 - [Features](#features)
-- [Mantle Blockchain Smart Contract Functions](#mantle-blockchain-smart-contract-functions)
+- [Smart Contract Functions](#smart-contract-functions)
 - [Project Setup](#project-setup)
   - [Prerequisites](#prerequisites)
 - [Setting up Android SDK and Physical device](#setting-up-android-sdk-and-physical-device)
@@ -30,7 +30,7 @@ Welcome to the NexusXP Project! This project combines the immersive power of AR/
 
 ---
 
-## Mantle Blockchain Smart Contract Functions
+## Smart Contract Functions
 
 This project incorporates the following Solidity smart contract functions (Contract Address:```0x855ca462005f7DacC1E5c9ea29D43A2f84B58bda```):
 
