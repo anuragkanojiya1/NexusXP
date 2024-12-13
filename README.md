@@ -5,10 +5,10 @@ Welcome to the NexusXP Project! This project combines the immersive power of AR/
 ## Table of Contents
 
 - [Features](#features)
-- [Mantle Blockchain Solidity Functions](#mantle-blockchain-smart-contract-functions)
+- [Mantle Blockchain Smart Contract Functions](#mantle-blockchain-smart-contract-functions)
 - [Project Setup](#project-setup)
   - [Prerequisites](#prerequisites)
-- [Setting up Android SDK and Physical Device](#setting-up-android-sdk-and-physical-device)
+- [Setting up Android SDK and Physical device](#setting-up-android-sdk-and-physical-device)
 - [Running the Project](#running-the-project)
 - [Demo of the Game](#demo-of-the-game)
 - [Contribution Guidelines](#contribution-guidelines)
