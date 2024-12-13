@@ -12,6 +12,7 @@ Welcome to the NexusXP Project! This project combines the immersive power of AR/
 - **Jetpack Compose**: A modern UI toolkit for creating a seamless and dynamic user interface.
 - **Collision Detection**: Proximity-based detection for collecting in-game items.
 - **Continuous Movement Controls**: Intuitive button controls for navigating the player model.
+- **Key Encryption**: User's private key is stored using Encryption in android which secure the credential of the user from any malicious source.
 
 ---
 
