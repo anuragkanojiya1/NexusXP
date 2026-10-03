@@ -1,9 +1,6 @@
-package com.example.controlgame
+package com.game.arodyssey
 
-import PreferencesManager
-import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,12 +8,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,15 +24,15 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,88 +41,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import coil3.compose.AsyncImage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.web3j.crypto.Credentials
 import java.math.BigInteger
-
-//@SuppressLint("CoroutineCreationDuringComposition")
-//@Composable
-//fun ModelsGallery() {
-//    // Dummy player address and itemId (replace with actual data)
-//    val playerAddress = credentials.address
-//
-//    LazyColumn(modifier = Modifier.padding(16.dp).fillMaxSize()) {
-//        items(Models.models) { item ->
-//            var isUnlocked = false
-//
-//            // Check if the item is unlocked
-//            CoroutineScope(Dispatchers.Main).launch {
-//                isUnlocked = isItemUnlocked(playerAddress, item.id.toBigInteger())
-//            }
-//
-//            Text(
-//                text = "ID: ${item.id}",
-//                modifier = Modifier
-//                    .padding(8.dp)
-//            )
-//            Text(
-//                text = item.modelPath
-//            )
-//            Text(
-//                text = item.modelName
-//            )
-//            Text(
-//                text = "Unlocked: ${if (isUnlocked) "Yes" else "No"}",
-//                modifier = Modifier.padding(8.dp)
-//            )
-//        }
-//    }
-//}
-
 
 @Preview(showBackground = true)
 @Composable
 fun M(){
-    ModelsScreen(gameViewModel = GameViewModel(), navController = rememberNavController(), score = 100, context = LocalContext.current)
+    val context = LocalContext.current
+    ModelsScreen(gameViewModel = GameViewModel(context.applicationContext as android.app.Application), navController = rememberNavController(), score = 100, context = context)
 }
 
 @Composable
 fun ModelsScreen(gameViewModel: GameViewModel, navController: NavController, score: Int, context: Context) {
-    val playerScore = gameViewModel.playerScore.collectAsState()
-    val transactionStatus = gameViewModel.transactionStatus.collectAsState()
-
     val preferencesManager = remember { PreferencesManager(context) }
-
-    var currentScore = remember { mutableStateOf(score) }
-
-    val context = LocalContext.current
-
-    val credentials = remember {
-        Credentials.create(getPrivateKey(context))
-    }
-
-//    // List of models
-//    val models = listOf(
-//        ModelItem("0", "Free", "100", "Audi", "3D model", ""),
-//        ModelItem("1", "10", "100", "Car", "3D model", ""),
-//        ModelItem("2", "20", "200", "Robo Bun", "3D model", ""),
-//        ModelItem("3", "100", "300", "Temelia", "3D model", ""),
-//        ModelItem("4", "3000", "1000", "Advanced Vehicle", "3D model", ""),
-//    )
-
-    LaunchedEffect(credentials){
-        gameViewModel.initializeCredentials(credentials, credentials.address.toString())
-    }
-
-    LaunchedEffect(Unit) {
-            gameViewModel.updatePlayerScore(score.toBigInteger()).toString()
-            gameViewModel.fetchPlayerScore()
-    }
+    val currentScore = remember { mutableStateOf(score) }
 
     Column(
         modifier = Modifier
@@ -150,19 +76,11 @@ fun ModelsScreen(gameViewModel: GameViewModel, navController: NavController, sco
                 ModelCard(
                     model = model,
                     playerScore = BigInteger.valueOf(currentScore.value.toLong()),
-                    onBuyClick = { gameViewModel.buyItem(BigInteger(model.id), BigInteger(model.price)) },
-                    onUnlockClick = { gameViewModel.unlockItem(BigInteger(model.id)) },
+                    onBuyClick = { },
+                    onUnlockClick = { },
                     preferencesManager = preferencesManager
                 )
             }
-        }
-        if (transactionStatus.value.isNotEmpty()) {
-            Text(
-                text = "Transaction Status: $transactionStatus",
-                color = Color.White,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(16.dp)
-            )
         }
     }
 }
@@ -203,14 +121,16 @@ fun ModelCard(
     playerScore: BigInteger,
     onBuyClick: () -> Unit,
     onUnlockClick: () -> Unit,
-     preferencesManager: PreferencesManager
+    preferencesManager: PreferencesManager
 ) {
-
-    val modelState = remember { mutableStateOf(preferencesManager.getModelState(model.id)) }
+    val coroutineScope = rememberCoroutineScope()
+    val modelStateFlow = remember(model.id) { preferencesManager.getModelStateFlow(model.id) }
+    val modelState by modelStateFlow.collectAsState(initial = "locked")
 
     val updateModelState: (String) -> Unit = { newState ->
-        preferencesManager.saveModelState(model.id, newState)
-        modelState.value = newState
+        coroutineScope.launch {
+            preferencesManager.saveModelState(model.id, newState)
+        }
     }
 
     var isUnlocked = remember { mutableStateOf(false) }
@@ -233,7 +153,7 @@ fun ModelCard(
             modifier = Modifier.weight(2f)
         ) {
             Text(text = "Price: "+model.price, color = Color(0xFF9DABB8), fontSize = 14.sp)
-            Text(text = "Unlock Score: "+model.price, color = Color(0xFF9DABB8), fontSize = 14.sp)
+            Text(text = "Unlock Score: "+model.unlockScore, color = Color(0xFF9DABB8), fontSize = 14.sp)
             Text(text = model.name, color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
             Text(text = model.type, color = Color(0xFF9DABB8), fontSize = 14.sp)
 
@@ -244,7 +164,7 @@ fun ModelCard(
                         onBuyClick()
                         updateModelState("bought")
                     },
-                    enabled = modelState.value == "locked" && model.price != "Free"
+                    enabled = modelState == "locked" && model.price != "Free"
                 ) {
                     Text("Buy")
                 }
@@ -254,14 +174,14 @@ fun ModelCard(
                         onUnlockClick()
                         updateModelState("unlocked")
                     },
-                    enabled = modelState.value == "locked" && isUnlocked.value && model.price != "Free"
+                    enabled = modelState == "locked" && isUnlocked.value && model.price != "Free"
                 ) {
                     Text("Unlock")
                 }
             }
-            if (modelState.value != "locked") {
+            if (modelState != "locked") {
                 Text(
-                    text = if (modelState.value == "bought") "Already Bought" else "Already Unlocked",
+                    text = if (modelState == "bought") "Already Bought" else "Already Unlocked",
                     color = Color.Green,
                     fontSize = 12.sp
                 )
@@ -273,9 +193,7 @@ fun ModelCard(
             contentDescription = model.name,
             modifier = Modifier
                 .weight(1f)
-          //      .aspectRatio(16 / 9f)
                 .clip(RoundedCornerShape(8.dp))
         )
     }
 }
-

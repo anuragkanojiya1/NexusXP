@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ControlGame"
+rootProject.name = "ArOdyssey"
 include(":app")
  

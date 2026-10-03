@@ -1,4 +1,4 @@
-package com.example.controlgame
+package com.game.arodyssey
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

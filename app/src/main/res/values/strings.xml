@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">NexusXP</string>
+    <string name="app_name">AR Odyssey</string>
+    <string name="id_url" translatable="false">https://snap.com</string>
+    <string name="id_favicon" translatable="false">favicon.ico</string>
 </resources>

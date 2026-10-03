@@ -1,4 +1,4 @@
-package com.example.controlgame
+package com.game.arodyssey
 
 import org.junit.Test
 

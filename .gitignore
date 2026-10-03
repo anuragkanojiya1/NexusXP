@@ -1,15 +1,77 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Files for the Dalvik VM
+*.dex
+
+# Gradle files
+.gradle/
+build/
+**/build/
+
+# Local configuration file (sdk.path, etc.)
 local.properties
+
+# Log Files
+*.log
+
+# Android Studio generated files
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/assetWizardSettings.xml
+.idea/codeStyles/
+.idea/gradle.xml
+.idea/shelf/
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/navEditor.xml
+.idea/perforceSettings.xml
+.idea/dataSources/
+.idea/dataSources.local.xml
+.idea/sql-dialects.xml
+.idea/inspectionProfiles/
+.idea/vcs.xml
+.idea/filetypes.xml
+.idea/editor.xml
+.idea/deployment.xml
+.idea/usageView.xml
+.idea/copyright/
+.idea/misc.xml
+.idea/client.storage.xml
+.idea/play-services.xml
+.idea/notification.xml
+.idea/externalDependencies.xml
+
+# Visual Studio Code files
+.vscode/
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Profiler, CXX, external native build
+.externalNativeBuild/
+.cxx/
+captures/
+.hprof
+
+# Kotlin compiler and build caches
+.kotlin/
+.caches/
+.gradle-cache/
+
+# Lint cache
+.lint/
+lint-results*

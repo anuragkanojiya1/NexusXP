@@ -1,6 +1,6 @@
-# NexusXP
+# AR Odyssey
 
-Welcome to the NexusXP Project! This project combines the immersive power of AR/VR with blockchain technology using Mantle. The game is developed in Jetpack Compose and includes features such as collectible items, real-time score tracking, and blockchain integration for managing in-game rewards and purchases.
+Welcome to the AR Odyssey Project! This project combines the immersive power of AR/VR with blockchain technology using Mantle. The game is developed in Jetpack Compose and includes features such as collectible items, real-time score tracking, and blockchain integration for managing in-game rewards and purchases.
 
 ## Table of Contents
 

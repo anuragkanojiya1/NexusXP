@@ -1,4 +1,4 @@
-package com.example.controlgame.ui.theme
+package com.game.arodyssey.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

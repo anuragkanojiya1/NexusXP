@@ -1,1 +1,6 @@
-/build
+/build/
+.cxx/
+.externalNativeBuild/
+captures/
+*.hprof
+.transforms/
